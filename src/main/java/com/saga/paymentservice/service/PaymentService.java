@@ -52,11 +52,13 @@ public class PaymentService {
 
         paymentRepository.save(dtoToEntity(paymentResponseDTO));
         kafkaProducer.sendPayment(paymentResponseDTO);
+        log.info("USER " + responseDTO.getUserID() + " BALANCE: " + userBalance.get(responseDTO.getUserID()));
     }
 
     private void credit(OrchestratorResponseDTO responseDTO) {
         double balance = userBalance.get(responseDTO.getUserID());
         userBalance.put(responseDTO.getUserID(), balance + responseDTO.getAmount());
+        log.info("USER " + responseDTO.getUserID() + " BALANCE: " + userBalance.get(responseDTO.getUserID()));
     }
 
     @KafkaListener(
