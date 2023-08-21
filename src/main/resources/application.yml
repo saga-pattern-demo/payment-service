@@ -27,3 +27,4 @@ spring:
     bootstrap-servers: localhost:9092
     consumer:
       payment-group-id: "payment"
+      auto-offset-reset: earliest
